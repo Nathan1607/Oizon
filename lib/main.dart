@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:Orizon/ui/screens/auth.dart';
 import 'package:Orizon/ui/screens/home.dart';
+import 'package:Orizon/ui/screens/register_users.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/Auth': (context) => AuthScreen(),
         '/Home': (context) => Home(),
+        '/RegisterUsers': (context) => RegisterUsers()
       },
       initialRoute: '/Auth',
       // home: AuthScreen(),
