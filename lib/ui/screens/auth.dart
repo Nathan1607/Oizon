@@ -70,12 +70,15 @@ class _AuthScreenState extends State<AuthScreen> {
                                 borderSide: BorderSide(color: Colors.white))),
                       ),
                       const SizedBox(
-                        height: 100.0,
+                        height: 50.0,
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
                           padding: const EdgeInsets.symmetric(vertical: 15.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                         ),
                         onPressed: () =>
                             Navigator.of(context).pushNamed('/Home'),
@@ -114,16 +117,19 @@ class _AuthScreenState extends State<AuthScreen> {
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
                             padding: const EdgeInsets.symmetric(vertical: 15.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20), // Arrondir les coins
+                            ),
                           ),
                           onPressed: () => {},
-                          child: const Text('Se connecter via Google')),
-                      Container(
-                        child: TextButton(
+                          child: const Text('Se connecter via Google')
+                      ),
+                      TextButton(
                           onPressed: () =>
                               Navigator.of(context).pushNamed('/RegisterUsers'),
                           child: const Text('Créer un compte'),
                         ),
-                      ),
+                      
                       const Text('')
                     ],
                   ),

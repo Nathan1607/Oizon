@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class RegisterUsers extends StatefulWidget {
-  const RegisterUsers({Key? key}) : super(key: key);
+class RegisterSchool extends StatefulWidget {
+  const RegisterSchool({Key? key}) : super(key: key);
 
   @override
-  State<RegisterUsers> createState() => _RegisterUsersScreenState();
+  State<RegisterSchool> createState() => _RegisterSchoolScreenState();
 }
 
-class _RegisterUsersScreenState extends State<RegisterUsers> {
+class _RegisterSchoolScreenState extends State<RegisterSchool> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -22,7 +22,7 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                       horizontal: 20.0, vertical: 20.0),
                   child: RichText(
                     text: const TextSpan(
-                        text: 'Inscription',
+                        text: 'Inscription Ecole',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 30.0,
@@ -57,10 +57,7 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                                 borderRadius: BorderRadius.circular(90),
                               ),
                               child: OutlinedButton(
-                                onPressed: () {
-                                  Navigator.of(context).pushNamed('/RegisterSchool');
-
-                                },
+                                onPressed: () {},
                                 child: const Text('Centre / Ecole'),
                               ),
                             )
@@ -157,7 +154,7 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                                 vertical: 15.0, horizontal: 50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
-                                  20),
+                                  20), // Arrondir les coins
                             ),
                           ),
                           onPressed: () =>

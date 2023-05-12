@@ -8,34 +8,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final List<Widget> _widgetOptions = [];
-  int _selectedIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _widgetOptions.addAll([]);
-  }
-
-  _onItemTapped(int index) async {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Orizon'),
+        title: const Text('Home'),
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-
-        ],
+      body: const Center(
+        child: Text('data'),
       ),
     );
   }
