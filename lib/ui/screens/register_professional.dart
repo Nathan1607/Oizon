@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class RegisterSchool extends StatefulWidget {
-  const RegisterSchool({Key? key}) : super(key: key);
+class RegisterProfessional extends StatefulWidget {
+  const RegisterProfessional({Key? key}) : super(key: key);
 
   @override
-  State<RegisterSchool> createState() => _RegisterSchoolScreenState();
+  State<RegisterProfessional> createState() => _RegisterProfessionalScreenState();
 }
 
-class _RegisterSchoolScreenState extends State<RegisterSchool> {
+class _RegisterProfessionalScreenState extends State<RegisterProfessional> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -64,8 +64,10 @@ class _RegisterSchoolScreenState extends State<RegisterSchool> {
                                     Border.all(color: const Color(0xFFFBBC05)),
                                 borderRadius: BorderRadius.circular(90),
                               ),
-                              child: FilledButton.tonal(
-                                onPressed: () {},
+                              child: OutlinedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pushNamed('/RegisterSchool');
+                                },
                                 child: const Text('Centre / Ecole'),
                               ),
                             )
@@ -82,10 +84,8 @@ class _RegisterSchoolScreenState extends State<RegisterSchool> {
                             border: Border.all(color: const Color(0xFFFBBC05)),
                             borderRadius: BorderRadius.circular(90),
                           ),
-                          child: OutlinedButton(
-                            onPressed: () {
-                              Navigator.of(context).pushNamed('/RegisterProfessional');
-                            },
+                          child: FilledButton.tonal(
+                            onPressed: () {},
                             child: const Text('Professionnel'),
                           ),
                         ),
@@ -137,7 +137,7 @@ class _RegisterSchoolScreenState extends State<RegisterSchool> {
                         ),
                         TextFormField(
                           decoration: const InputDecoration(
-                              hintText: 'Le nom de l\'école / centre',
+                              hintText: 'Le nom de l\'entreprise',
                               hintStyle: TextStyle(color: Colors.white),
                               enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.white))),
@@ -148,43 +148,11 @@ class _RegisterSchoolScreenState extends State<RegisterSchool> {
                         ),
                         TextFormField(
                           decoration: const InputDecoration(
-                              hintText: 'L\'adresse',
+                              hintText: 'Le nom de votre métier',
                               hintStyle: TextStyle(color: Colors.white),
                               enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.white))),
                           style: const TextStyle(color: Colors.white),
-                        ),
-                        const SizedBox(
-                          height: 25,
-                        ),
-                        Form(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: TextFormField(
-                                  decoration: const InputDecoration(
-                                      hintText: 'Code Postal',
-                                      hintStyle: TextStyle(color: Colors.white),
-                                      enabledBorder: UnderlineInputBorder(
-                                          borderSide:
-                                              BorderSide(color: Colors.white))),
-                                  style: const TextStyle(color: Colors.white),
-                                ),
-                              ),
-                              const SizedBox(width: 50.0),
-                              Expanded(
-                                child: TextFormField(
-                                  decoration: const InputDecoration(
-                                      hintText: 'Ville',
-                                      hintStyle: TextStyle(color: Colors.white),
-                                      enabledBorder: UnderlineInputBorder(
-                                          borderSide:
-                                              BorderSide(color: Colors.white))),
-                                  style: const TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          ),
                         ),
                         const SizedBox(
                           height: 25,

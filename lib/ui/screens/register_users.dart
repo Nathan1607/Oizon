@@ -78,7 +78,10 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                             borderRadius: BorderRadius.circular(90),
                           ),
                           child: OutlinedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).pushNamed('/RegisterProfessional');
+
+                            },
                             child: const Text('Professionnel'),
                           ),
                         ),
