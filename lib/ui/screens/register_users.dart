@@ -164,7 +164,7 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                             ),
                           ),
                           onPressed: () =>
-                              Navigator.of(context).pushNamed('/Home'),
+                              Navigator.of(context).pushNamed('/Formations'),
                           child: Text(
                             'Incristpion'.toUpperCase(),
                             style: const TextStyle(

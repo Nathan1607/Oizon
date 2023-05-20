@@ -4,6 +4,7 @@ import 'package:orizon/ui/screens/home.dart';
 import 'package:orizon/ui/screens/register_users.dart';
 import 'package:orizon/ui/screens/register_school.dart';
 import 'package:orizon/ui/screens/register_professional.dart';
+import 'package:orizon/ui/screens/formations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,7 +38,8 @@ class MyApp extends StatelessWidget {
         '/Home': (context) => const Home(),
         '/RegisterUsers': (context) => const RegisterUsers(),
         '/RegisterSchool': (context) => const RegisterSchool(),
-        '/RegisterProfessional': (context) => const RegisterProfessional()
+        '/RegisterProfessional': (context) => const RegisterProfessional(),
+        '/Formations': (context) => const Formations()
       },
       initialRoute: '/Auth',
     );
