@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../models/formations_models.dart';
 import '../../repositories/formations_repositories.dart';
 
@@ -22,9 +21,6 @@ class _FormationsState extends State<Formations> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Formations'),
-      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 7.0),
         child: Column(
@@ -45,7 +41,8 @@ class _FormationsState extends State<Formations> {
                             child: MaterialButton(
                               onPressed: () {},
                               child: ListTile(
-                                title: Text('${formation.uolib} de ${formation.acanom}',
+                                title: Text(
+                                  '${formation.uolib} de ${formation.acanom}',
                                 ),
                               ),
                             ),
