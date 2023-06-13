@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:orizon/blocs/accountuser_cubit.dart';
+import 'package:orizon/models/accountusers_model.dart';
 
 class RegisterUsers extends StatefulWidget {
   const RegisterUsers({Key? key}) : super(key: key);
@@ -8,6 +14,46 @@ class RegisterUsers extends StatefulWidget {
 }
 
 class _RegisterUsersScreenState extends State<RegisterUsers> {
+  
+  final TextEditingController nomController = TextEditingController();
+  final TextEditingController prenomController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+   void registerUser() async {
+    final url = Uri.parse('https://a9f4-84-55-185-138.ngrok-free.app/register');
+
+    final body = jsonEncode({
+        'name': nomController.text,
+        'first_name': prenomController.text,
+        'mail': emailController.text,
+        'password': passwordController.text,
+    });
+
+    final response = await http.post(
+    url,
+    headers: {'Content-Type': 'application/json'},
+    body: body,
+  );
+
+     if (response.statusCode == 200) {
+      print('Inscription réussie');
+    } else {
+      final responseBody = utf8.decode(response.bodyBytes);
+      final responseJson = jsonDecode(responseBody);
+      print('Erreur lors de l\'inscription: ${responseJson['error']}');
+  }
+  }
+
+  @override
+  void dispose() {
+    nomController.dispose();
+    prenomController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -58,8 +104,8 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                               ),
                               child: OutlinedButton(
                                 onPressed: () {
-                                  Navigator.of(context).pushNamed('/RegisterSchool');
-
+                                  Navigator.of(context)
+                                      .pushNamed('/RegisterSchool');
                                 },
                                 child: const Text('Centre / Ecole'),
                               ),
@@ -79,8 +125,8 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                           ),
                           child: OutlinedButton(
                             onPressed: () {
-                              Navigator.of(context).pushNamed('/RegisterProfessional');
-
+                              Navigator.of(context)
+                                  .pushNamed('/RegisterProfessional');
                             },
                             child: const Text('Professionnel'),
                           ),
@@ -93,6 +139,7 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                             children: [
                               Expanded(
                                 child: TextFormField(
+                                  controller: nomController,
                                   decoration: const InputDecoration(
                                       hintText: 'Votre Nom',
                                       hintStyle: TextStyle(color: Colors.white),
@@ -105,6 +152,7 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                               const SizedBox(width: 50.0),
                               Expanded(
                                 child: TextFormField(
+                                  controller: prenomController,
                                   decoration: const InputDecoration(
                                       hintText: 'Votre Prénom',
                                       hintStyle: TextStyle(color: Colors.white),
@@ -121,6 +169,7 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                           height: 25,
                         ),
                         TextFormField(
+                          controller: emailController,
                           decoration: const InputDecoration(
                               hintText: 'Votre Mail',
                               hintStyle: TextStyle(color: Colors.white),
@@ -132,6 +181,7 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                           height: 25,
                         ),
                         TextFormField(
+                          controller: passwordController,
                           decoration: const InputDecoration(
                               hintText: 'Mot de passe',
                               hintStyle: TextStyle(color: Colors.white),
@@ -159,12 +209,12 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 15.0, horizontal: 50),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  20),
+                              borderRadius: BorderRadius.circular(20),
                             ),
                           ),
-                          onPressed: () =>
-                              Navigator.of(context).pushNamed('/Formations'),
+                          onPressed: () {
+                            registerUser();
+                          },
                           child: Text(
                             'Incristpion'.toUpperCase(),
                             style: const TextStyle(
@@ -172,7 +222,9 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 25,),
+                        const SizedBox(
+                          height: 25,
+                        ),
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).pushNamed('/Auth');
@@ -180,9 +232,8 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                           child: const Text(
                             'Avez-vous un compte ? Se connecter',
                             style: TextStyle(
-                              color: Colors.white,
-                              decoration: TextDecoration.underline
-                            ),
+                                color: Colors.white,
+                                decoration: TextDecoration.underline),
                           ),
                         )
                       ],

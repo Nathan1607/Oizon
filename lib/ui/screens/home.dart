@@ -42,19 +42,39 @@ class _HomeState extends State<Home> {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Orizon'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {},
+            color: const Color(0xFFFBBC05),
+          ),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.chat),
+              onPressed: () {},
+              color: const Color(0xFFFBBC05),
+            ),
+            IconButton(
+              icon: const Icon(Icons.notification_add),
+              onPressed: () {},
+              color: const Color(0xFFFBBC05),
+            )
+          ],
           centerTitle: true,
           automaticallyImplyLeading: false,
-          backgroundColor: const Color(0xFFFBBC05),
+          backgroundColor: const Color(0xFF000117),
         ),
         body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
+          child: SingleChildScrollView(
+            child: Center(
+              child:  _widgetOptions.elementAt(_selectedIndex),
+            ),            
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.chat_sharp),
-              label: 'Chat',
+              icon: Icon(Icons.home),
+              label: 'Home',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.school_outlined),
@@ -74,7 +94,7 @@ class _HomeState extends State<Home> {
             ),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.amber[800],
+          selectedItemColor: const Color(0xFFFBBC05),
           onTap: _onItemTapped,
         ),
       ),
