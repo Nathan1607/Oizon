@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:orizon/blocs/accountuser_cubit.dart';
-import 'package:orizon/models/accountusers_model.dart';
-
 class RegisterUsers extends StatefulWidget {
   const RegisterUsers({Key? key}) : super(key: key);
 
@@ -14,35 +10,36 @@ class RegisterUsers extends StatefulWidget {
 }
 
 class _RegisterUsersScreenState extends State<RegisterUsers> {
-  
   final TextEditingController nomController = TextEditingController();
   final TextEditingController prenomController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  // final GlobalKey<FormState> _formKey = GlobalKey();
 
-   void registerUser() async {
-    final url = Uri.parse('https://a9f4-84-55-185-138.ngrok-free.app/register');
+  void registerUser() async {
+    final url =
+        Uri.parse('https://e52d-90-58-167-129.ngrok-free.app/registerUsers');
 
     final body = jsonEncode({
-        'name': nomController.text,
-        'first_name': prenomController.text,
-        'mail': emailController.text,
-        'password': passwordController.text,
+      'name': nomController.text,
+      'first_name': prenomController.text,
+      'mail': emailController.text,
+      'password': passwordController.text,
     });
 
     final response = await http.post(
-    url,
-    headers: {'Content-Type': 'application/json'},
-    body: body,
-  );
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: body,
+    );
 
-     if (response.statusCode == 200) {
+    if (response.statusCode == 200) {
       print('Inscription réussie');
     } else {
       final responseBody = utf8.decode(response.bodyBytes);
       final responseJson = jsonDecode(responseBody);
       print('Erreur lors de l\'inscription: ${responseJson['error']}');
-  }
+    }
   }
 
   @override
@@ -140,6 +137,12 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                               Expanded(
                                 child: TextFormField(
                                   controller: nomController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Veuillez entrer votre nom';
+                                    }
+                                    return null;
+                                  },
                                   decoration: const InputDecoration(
                                       hintText: 'Votre Nom',
                                       hintStyle: TextStyle(color: Colors.white),
@@ -153,6 +156,12 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                               Expanded(
                                 child: TextFormField(
                                   controller: prenomController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Veuillez entrer votre prénom';
+                                    }
+                                    return null;
+                                  },
                                   decoration: const InputDecoration(
                                       hintText: 'Votre Prénom',
                                       hintStyle: TextStyle(color: Colors.white),
@@ -170,6 +179,12 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                         ),
                         TextFormField(
                           controller: emailController,
+                          validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Veuillez entrer votre mail';
+                                    }
+                                    return null;
+                                  },
                           decoration: const InputDecoration(
                               hintText: 'Votre Mail',
                               hintStyle: TextStyle(color: Colors.white),
@@ -182,6 +197,12 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                         ),
                         TextFormField(
                           controller: passwordController,
+                          validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Veuillez entrer votre mot de passe';
+                                    }
+                                    return null;
+                                  },
                           decoration: const InputDecoration(
                               hintText: 'Mot de passe',
                               hintStyle: TextStyle(color: Colors.white),
@@ -193,6 +214,12 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                           height: 25,
                         ),
                         TextFormField(
+                          validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Veuillez confirmer votre mot de passe';
+                                    }
+                                    return null;
+                                  },
                           decoration: const InputDecoration(
                               hintText: 'Confirmer le mot de passe',
                               hintStyle: TextStyle(color: Colors.white),

@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:orizon/repositories/accountusers_repositories.dart';
-
-import 'blocs/accountuser_cubit.dart';
-
 import 'package:orizon/ui/screens/auth.dart';
 import 'package:orizon/ui/screens/home.dart';
 import 'package:orizon/ui/screens/register_users.dart';
@@ -13,14 +8,7 @@ import 'package:orizon/ui/screens/register_professional.dart';
 import 'package:orizon/ui/screens/formations.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  final AccountUsersRepository accountUsersRepository =
-      AccountUsersRepository();
-  final AccountUsersCubit accountUsersCubit =
-      AccountUsersCubit(accountUsersRepository);
-  accountUsersCubit.loadAccountUsers();
-  runApp(BlocProvider(
-      create: (BuildContext context) => accountUsersCubit, child: const MyApp()));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
