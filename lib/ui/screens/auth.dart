@@ -1,4 +1,7 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -8,6 +11,56 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  final TextEditingController mailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  void login() async {
+    bool validateFields() {
+      if (mailController.text.isEmpty || passwordController.text.isEmpty) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(
+              content: Text('Veuillez remplir tous les champs.'),
+            ))
+            .closed
+            .then((SnackBarClosedReason reason) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AuthScreen()),
+          );
+        });
+        return false;
+      }
+      return true;
+    }
+
+    if (!validateFields()) {
+      return;
+    }
+
+    final url = Uri.parse('https://3448-90-58-167-129.ngrok-free.app/login');
+
+    final body = jsonEncode(
+        {'mail': mailController.text, 'password': passwordController.text});
+
+    final response = await http.post(url,
+        headers: {'Content-Type': 'application/json'}, body: body);
+
+    if (response.statusCode == 200) {
+      print('Inscription réussie');
+    } else {
+      final responseBody = utf8.decode(response.bodyBytes);
+      final responseJson = jsonDecode(responseBody);
+      print('Erreur lors de l\'inscription: ${responseJson['error']}');
+    }
+  }
+
+  @override
+  void dispose() {
+    mailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -51,6 +104,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       TextFormField(
+                        controller: mailController,
                         decoration: const InputDecoration(
                             hintText: 'Email',
                             hintStyle: TextStyle(
@@ -63,6 +117,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         height: 25,
                       ),
                       TextFormField(
+                        controller: passwordController,
                         decoration: const InputDecoration(
                             hintText: 'Mot de passe',
                             hintStyle: TextStyle(color: Colors.white),
@@ -80,8 +135,10 @@ class _AuthScreenState extends State<AuthScreen> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                         ),
-                        onPressed: () =>
-                            Navigator.of(context).pushNamed('/Home'),
+                        onPressed: () {
+                          login();
+                          Navigator.of(context).pushNamed('/Home');
+                        },
                         child: Text(
                           'Se connecter'.toUpperCase(),
                           style: const TextStyle(
@@ -118,18 +175,17 @@ class _AuthScreenState extends State<AuthScreen> {
                             elevation: 0,
                             padding: const EdgeInsets.symmetric(vertical: 15.0),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20), // Arrondir les coins
+                              borderRadius: BorderRadius.circular(
+                                  20), // Arrondir les coins
                             ),
                           ),
                           onPressed: () => {},
-                          child: const Text('Se connecter via Google')
-                      ),
+                          child: const Text('Se connecter via Google')),
                       TextButton(
-                          onPressed: () =>
-                              Navigator.of(context).pushNamed('/RegisterUsers'),
-                          child: const Text('Créer un compte'),
-                        ),
-                      
+                        onPressed: () =>
+                            Navigator.of(context).pushNamed('/RegisterUsers'),
+                        child: const Text('Créer un compte'),
+                      ),
                       const Text('')
                     ],
                   ),
