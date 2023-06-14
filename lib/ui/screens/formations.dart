@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+
 
 class Formations extends StatefulWidget {
   const Formations({Key? key}) : super(key: key);
@@ -33,9 +35,7 @@ class _FormationsState extends State<Formations> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed('/Auth');
-                  },
+                  onPressed: () {},
                   child: Text(
                     'Passez un bilan'.toUpperCase(),
                     style: const TextStyle(
@@ -79,9 +79,14 @@ class _FormationsState extends State<Formations> {
                             Border.all(color: const Color(0xFFFBBC05)),
                         borderRadius: BorderRadius.circular(90),
                       ),
-                      child: OutlinedButton(
-                        onPressed: () {},
-                        child: const Text('Développement', style: TextStyle(color: Color(0xFFFBBC05)),),
+                      child: FilledButton.tonal(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/SearchFormations');
+                        },
+                        style: FilledButton.styleFrom(
+                          backgroundColor: const Color(0xFFFBBC05),
+                        ),
+                        child: const Text('Développement', style: TextStyle(color: Color(0xFF000117)),),
                       ),
                     )
                   ]

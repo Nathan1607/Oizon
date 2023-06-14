@@ -79,9 +79,12 @@ class _ImmersionsState extends State<Immersions> {
                             Border.all(color: const Color(0xFFFBBC05)),
                         borderRadius: BorderRadius.circular(90),
                       ),
-                      child: OutlinedButton(
+                      child: FilledButton.tonal(
                         onPressed: () {},
-                        child: const Text('Développement', style: TextStyle(color: Color(0xFFFBBC05)),),
+                        style: FilledButton.styleFrom(
+                          backgroundColor: const Color(0xFFFBBC05),
+                        ),
+                        child: const Text('Développement', style: TextStyle(color: Color(0xFF000117)),),
                       ),
                     )
                   ]

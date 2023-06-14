@@ -7,6 +7,7 @@ import 'package:orizon/ui/screens/register_school.dart';
 import 'package:orizon/ui/screens/register_professional.dart';
 import 'package:orizon/ui/screens/formations.dart';
 import 'package:orizon/ui/screens/menu.dart';
+import 'package:orizon/ui/screens/search_formations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -42,7 +43,8 @@ class MyApp extends StatelessWidget {
         '/RegisterSchool': (context) => const RegisterSchool(),
         '/RegisterProfessional': (context) => const RegisterProfessional(),
         '/Formations': (context) => const Formations(),
-        '/Menu': (context) => const Menu()
+        '/Menu': (context) => const Menu(),
+        '/SearchFormations': (context) => const SearchFormations()
       },
       initialRoute: '/Auth',
     );

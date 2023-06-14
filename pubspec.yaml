@@ -80,6 +80,8 @@ flutter:
     - assets/forum_metier.png
     - assets/parcoursup.png
     - assets/salon_metier.png
+    - assets/logo_formations.png
+    - assets/illustration_formations.png
     # - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
