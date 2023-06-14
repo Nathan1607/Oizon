@@ -63,7 +63,7 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
         );
       });
 
-      return; // Arrêter l'exécution de la fonction
+      return;
     }
 
     final url =

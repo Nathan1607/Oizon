@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:orizon/ui/screens/account.dart';
 import 'package:orizon/ui/screens/wishes.dart';
 import 'formations.dart';
-import 'chat.dart';
+import 'menu.dart';
 import 'immersions.dart';
 
 class Home extends StatefulWidget {
@@ -20,7 +20,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     _widgetOptions.addAll([
-      const Chat(),
+      const Menu(),
       const Formations(),
       const Immersions(),
       const Wishes(),
@@ -63,13 +63,7 @@ class _HomeState extends State<Home> {
           automaticallyImplyLeading: false,
           backgroundColor: const Color(0xFF000117),
         ),
-        body: Center(
-          child: SingleChildScrollView(
-            child: Center(
-              child:  _widgetOptions.elementAt(_selectedIndex),
-            ),            
-          ),
-        ),
+        body: _widgetOptions.elementAt(_selectedIndex),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -97,7 +91,7 @@ class _HomeState extends State<Home> {
           selectedItemColor: const Color(0xFFFBBC05),
           onTap: _onItemTapped,
         ),
-      ),
+      )
     );
   }
 }
