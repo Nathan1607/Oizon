@@ -8,8 +8,24 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
+
   @override
   Widget build(BuildContext context) {
-    return Container(color: const Color(0xFFFFE306));
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+                const SizedBox(height: 20,),
+                const Text('MON COMPTE', 
+                style: TextStyle(color: Color(0xFFFBBC05), fontSize: 20)),
+                const  SizedBox(height: 80,),
+              ],
+            )
+          ),
+        ),
+      ),
+    );
   }    
 }

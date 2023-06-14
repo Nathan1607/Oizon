@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -45,21 +46,31 @@ class _AuthScreenState extends State<AuthScreen> {
     final response = await http.post(url,
         headers: {'Content-Type': 'application/json'}, body: body);
 
-    if (response.statusCode == 200) {
-      print('Connexion réussie');
-      Navigator.of(context).pushNamed('/Home');
-      final jsonResponse = json.decode(response.body);
-      final token = jsonResponse['token'];
+      if (response.statusCode == 200) {
+        print('Connexion réussie');
+        Navigator.of(context).pushNamed('/Home');
+        final jsonResponse = json.decode(response.body);
+        final token = jsonResponse['token'];
 
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('token', token);
-    } else {
-      print('Erreur lors de la connexion');
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Mail ou Mot de passe incorrect.'),
-      ));
-    }
-  }
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('token', token);
+
+        // Décoder le jeton
+        Map<String, dynamic> decodedToken = Jwt.parseJwt(token);
+
+        // Accéder aux données du jeton décodé
+        String userId = decodedToken['userId'].toString();
+
+        // Utiliser les données du jeton comme vous le souhaitez
+        print('User ID: $userId');
+
+      }else {
+        print('Erreur lors de la connexion');
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Mail ou Mot de passe incorrect.'),
+        ));
+      } 
+  } 
 
   @override
   void dispose() {
