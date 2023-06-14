@@ -14,11 +14,60 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
   final TextEditingController prenomController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  // final GlobalKey<FormState> _formKey = GlobalKey();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   void registerUser() async {
+    bool validateFields() {
+      if (nomController.text.isEmpty ||
+          prenomController.text.isEmpty ||
+          emailController.text.isEmpty ||
+          passwordController.text.isEmpty ||
+          confirmPasswordController.text.isEmpty) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(
+              content: Text('Veuillez remplir tous les champs.'),
+            ))
+            .closed
+            .then((SnackBarClosedReason reason) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const RegisterUsers()),
+          );
+        });
+        return false;
+      }
+      return true;
+    }
+
+    if (!validateFields()) {
+      return;
+    }
+
+    // Récupérer les valeurs des champs de mot de passe
+    String password = passwordController.text;
+    String confirmPassword = confirmPasswordController.text;
+
+    if (password != confirmPassword) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(
+            const SnackBar(
+              content: Text('Les deux mots de passe ne correspondent pas.'),
+            ),
+          )
+          .closed
+          .then((SnackBarClosedReason reason) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const RegisterUsers()),
+        );
+      });
+
+      return; // Arrêter l'exécution de la fonction
+    }
+
     final url =
-        Uri.parse('https://e52d-90-58-167-129.ngrok-free.app/registerUsers');
+        Uri.parse('https://3448-90-58-167-129.ngrok-free.app/registerUsers');
 
     final body = jsonEncode({
       'name': nomController.text,
@@ -48,6 +97,7 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
     prenomController.dispose();
     emailController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -180,11 +230,11 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                         TextFormField(
                           controller: emailController,
                           validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Veuillez entrer votre mail';
-                                    }
-                                    return null;
-                                  },
+                            if (value == null || value.isEmpty) {
+                              return 'Veuillez entrer votre mail';
+                            }
+                            return null;
+                          },
                           decoration: const InputDecoration(
                               hintText: 'Votre Mail',
                               hintStyle: TextStyle(color: Colors.white),
@@ -198,11 +248,11 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                         TextFormField(
                           controller: passwordController,
                           validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Veuillez entrer votre mot de passe';
-                                    }
-                                    return null;
-                                  },
+                            if (value == null || value.isEmpty) {
+                              return 'Veuillez entrer votre mot de passe';
+                            }
+                            return null;
+                          },
                           decoration: const InputDecoration(
                               hintText: 'Mot de passe',
                               hintStyle: TextStyle(color: Colors.white),
@@ -214,12 +264,13 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                           height: 25,
                         ),
                         TextFormField(
+                          controller: confirmPasswordController,
                           validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Veuillez confirmer votre mot de passe';
-                                    }
-                                    return null;
-                                  },
+                            if (value == null || value.isEmpty) {
+                              return 'Veuillez confirmer votre mot de passe';
+                            }
+                            return null;
+                          },
                           decoration: const InputDecoration(
                               hintText: 'Confirmer le mot de passe',
                               hintStyle: TextStyle(color: Colors.white),
@@ -241,6 +292,7 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                           ),
                           onPressed: () {
                             registerUser();
+                            Navigator.of(context).pushNamed('/Auth');
                           },
                           child: Text(
                             'Incristpion'.toUpperCase(),

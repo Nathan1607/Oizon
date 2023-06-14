@@ -18,10 +18,64 @@ class _RegisterSchoolScreenState extends State<RegisterSchool> {
   final TextEditingController postcodeController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   void registerSchool() async {
+    bool validateFields() {
+      if (nomController.text.isEmpty ||
+          prenomController.text.isEmpty ||
+          emailController.text.isEmpty ||
+          nameschoolController.text.isEmpty ||
+          addressController.text.isEmpty ||
+          postcodeController.text.isEmpty ||
+          cityController.text.isEmpty ||
+          passwordController.text.isEmpty ||
+          confirmPasswordController.text.isEmpty) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(
+              content: Text('Veuillez remplir tous les champs.'),
+            ))
+            .closed
+            .then((SnackBarClosedReason reason) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const RegisterSchool()),
+          );
+        });
+        return false;
+      }
+      return true;
+    }
+
+    if (!validateFields()) {
+      return;
+    }
+
+    // Récupérer les valeurs des champs de mot de passe
+    String password = passwordController.text;
+    String confirmPassword = confirmPasswordController.text;
+
+    if (password != confirmPassword) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(
+            const SnackBar(
+              content: Text('Les deux mots de passe ne correspondent pas.'),
+            ),
+          )
+          .closed
+          .then((SnackBarClosedReason reason) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const RegisterSchool()),
+        );
+      });
+
+      return; // Arrêter l'exécution de la fonction
+    }
+
     final url =
-        Uri.parse('https://e52d-90-58-167-129.ngrok-free.app/registerSchool');
+        Uri.parse('https://3448-90-58-167-129.ngrok-free.app/registerSchool');
 
     final body = jsonEncode({
       'name': nomController.text,
@@ -61,6 +115,7 @@ class _RegisterSchoolScreenState extends State<RegisterSchool> {
     postcodeController.dispose();
     cityController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -267,6 +322,7 @@ class _RegisterSchoolScreenState extends State<RegisterSchool> {
                           height: 25,
                         ),
                         TextFormField(
+                          controller: confirmPasswordController,
                           decoration: const InputDecoration(
                               hintText: 'Confirmer le mot de passe',
                               hintStyle: TextStyle(color: Colors.white),
@@ -287,8 +343,10 @@ class _RegisterSchoolScreenState extends State<RegisterSchool> {
                                   20), // Arrondir les coins
                             ),
                           ),
-                          onPressed: () =>
-                              registerSchool(),
+                          onPressed: () {
+                            registerSchool();
+                            Navigator.of(context).pushNamed('/Auth');
+                          },
                           child: Text(
                             'Incristpion'.toUpperCase(),
                             style: const TextStyle(
