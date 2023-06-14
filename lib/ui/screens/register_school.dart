@@ -310,6 +310,7 @@ class _RegisterSchoolScreenState extends State<RegisterSchool> {
                           height: 25,
                         ),
                         TextFormField(
+                          obscureText: true,
                           controller: passwordController,
                           decoration: const InputDecoration(
                               hintText: 'Mot de passe',
@@ -322,6 +323,7 @@ class _RegisterSchoolScreenState extends State<RegisterSchool> {
                           height: 25,
                         ),
                         TextFormField(
+                          obscureText: true,
                           controller: confirmPasswordController,
                           decoration: const InputDecoration(
                               hintText: 'Confirmer le mot de passe',

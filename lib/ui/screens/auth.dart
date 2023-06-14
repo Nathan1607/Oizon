@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -46,11 +46,18 @@ class _AuthScreenState extends State<AuthScreen> {
         headers: {'Content-Type': 'application/json'}, body: body);
 
     if (response.statusCode == 200) {
-      print('Inscription réussie');
+      print('Connexion réussie');
+      Navigator.of(context).pushNamed('/Home');
+      final jsonResponse = json.decode(response.body);
+      final token = jsonResponse['token'];
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', token);
     } else {
-      final responseBody = utf8.decode(response.bodyBytes);
-      final responseJson = jsonDecode(responseBody);
-      print('Erreur lors de l\'inscription: ${responseJson['error']}');
+      print('Erreur lors de la connexion');
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Mail ou Mot de passe incorrect.'),
+      ));
     }
   }
 
@@ -112,17 +119,20 @@ class _AuthScreenState extends State<AuthScreen> {
                             ),
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white))),
+                        style: const TextStyle(color: Colors.white),
                       ),
                       const SizedBox(
                         height: 25,
                       ),
                       TextFormField(
                         controller: passwordController,
+                        obscureText: true,
                         decoration: const InputDecoration(
                             hintText: 'Mot de passe',
                             hintStyle: TextStyle(color: Colors.white),
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white))),
+                        style: const TextStyle(color: Colors.white),
                       ),
                       const SizedBox(
                         height: 50.0,
@@ -137,7 +147,6 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                         onPressed: () {
                           login();
-                          Navigator.of(context).pushNamed('/Home');
                         },
                         child: Text(
                           'Se connecter'.toUpperCase(),

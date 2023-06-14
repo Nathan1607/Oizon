@@ -268,6 +268,7 @@ class _RegisterProfessionalScreenState extends State<RegisterProfessional> {
                           height: 25,
                         ),
                         TextFormField(
+                          obscureText: true,
                           controller: passwordController,
                           decoration: const InputDecoration(
                               hintText: 'Mot de passe',
@@ -280,6 +281,7 @@ class _RegisterProfessionalScreenState extends State<RegisterProfessional> {
                           height: 25,
                         ),
                         TextFormField(
+                          obscureText: true,
                           controller: confirmPasswordController,
                           decoration: const InputDecoration(
                               hintText: 'Confirmer le mot de passe',

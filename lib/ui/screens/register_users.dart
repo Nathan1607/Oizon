@@ -246,6 +246,7 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                           height: 25,
                         ),
                         TextFormField(
+                          obscureText: true,
                           controller: passwordController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -264,6 +265,7 @@ class _RegisterUsersScreenState extends State<RegisterUsers> {
                           height: 25,
                         ),
                         TextFormField(
+                          obscureText: true,
                           controller: confirmPasswordController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
