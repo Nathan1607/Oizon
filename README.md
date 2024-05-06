@@ -21,3 +21,8 @@ Orizon vise à atteindre deux objectifs principaux :
 - **Mise en relation :** Les utilisateurs peuvent entrer en contact avec les entreprises partenaires pour des stages, des emplois ou des informations complémentaires.
 - **Espace Entreprises :** Une section dédiée permet aux entreprises de créer et de gérer leur profil, de publier des offres d'emploi et de communiquer sur leurs activités.
 - **Actualités et Ressources :** Orizon propose également un flux d'actualités et des ressources pertinentes sur le marché de l'emploi et les tendances sectorielles.
+
+## Langages et Technologies Utilisés
+Le développement de l'application Orizon est réalisé en utilisant le framework Flutter, qui permet de créer des applications multiplateformes avec une seule base de code. Flutter offre une expérience de développement rapide, une performance élevée et une belle interface utilisateur, ce qui en fait un choix idéal pour ce projet.
+
+Le backend de l'application était initialement pris en charge par une API en Node.js. Cependant, cette API n'est plus en service. Des alternatives sont en cours d'évaluation pour assurer le bon fonctionnement et la pérennité de l'application.
